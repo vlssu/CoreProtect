@@ -33,7 +33,7 @@ jobs:
         with:
           name: CoreProtect-jar
           path: |
-            target/*.jar
+            target/CoreProtect-*.jar
             !target/CoreProtect-*-original.jar
           if-no-files-found: error
           retention-days: 1
