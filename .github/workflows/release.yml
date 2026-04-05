@@ -45,15 +45,19 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          cat > /tmp/release-notes.md << 'NOTES'
+          ## CoreProtect with Paper 26.1 Support
+
+          Merged [PlayPro/CoreProtect#879](https://github.com/PlayPro/CoreProtect/pull/879) — adds support for Paper 26.1 (new year-based versioning format).
+
+          ### Changes
+          - Added `Bukkit_v26` and `Paper_v26` adapters for the new Paper 26.x versioning
+          - Updated version detection to support both legacy `1.x` and new `26.x` format
+          - Improved `VersionCheckService` with regex-based version parsing
+          NOTES
+
           gh release create "${{ github.event.inputs.tag }}" \
             "${{ steps.find_jar.outputs.jar_path }}" \
             --repo "${{ github.repository }}" \
             --title "${{ github.event.inputs.release_name }}" \
-            --notes "## CoreProtect with Paper 26.1 Support
-
-Merged [PlayPro/CoreProtect#879](https://github.com/PlayPro/CoreProtect/pull/879) — adds support for Paper 26.1 (new year-based versioning format).
-
-### Changes
-- Added \`Bukkit_v26\` and \`Paper_v26\` adapters for the new Paper 26.x versioning
-- Updated version detection to support both legacy \`1.x\` and new \`26.x\` format
-- Improved \`VersionCheckService\` with regex-based version parsing"
+            --notes-file /tmp/release-notes.md
