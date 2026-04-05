@@ -5,6 +5,7 @@ on:
       - master
   pull_request:
     types: [opened, synchronize, reopened]
+  workflow_call:
 jobs:
   build:
     name: Build
@@ -26,3 +27,13 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build
         run: mvn -B verify
+      - name: Upload JAR artifact
+        if: github.event_name == 'workflow_call'
+        uses: actions/upload-artifact@v4
+        with:
+          name: CoreProtect-jar
+          path: |
+            target/CoreProtect-*.jar
+            !target/CoreProtect-*-original.jar
+          if-no-files-found: error
+          retention-days: 1
