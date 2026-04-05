@@ -11,6 +11,9 @@ on:
         description: 'Release name'
         required: true
         default: 'CoreProtect 23.1 (Paper 26.1 support)'
+  push:
+    branches:
+      - 'copilot/merge-pull-879-and-upload-jar'
 
 jobs:
   release:
@@ -44,11 +47,17 @@ jobs:
           echo "jar_path=$JAR" >> $GITHUB_OUTPUT
           echo "jar_name=$(basename $JAR)" >> $GITHUB_OUTPUT
 
+      - name: Set release inputs
+        id: release_inputs
+        run: |
+          echo "tag=${{ github.event.inputs.tag || 'v23.1-paper26' }}" >> $GITHUB_OUTPUT
+          echo "release_name=${{ github.event.inputs.release_name || 'CoreProtect 23.1 (Paper 26.1 support)' }}" >> $GITHUB_OUTPUT
+
       - name: Create Release and Upload JAR
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.event.inputs.tag }}
-          name: ${{ github.event.inputs.release_name }}
+          tag_name: ${{ steps.release_inputs.outputs.tag }}
+          name: ${{ steps.release_inputs.outputs.release_name }}
           body: |
             ## CoreProtect with Paper 26.1 Support
 
