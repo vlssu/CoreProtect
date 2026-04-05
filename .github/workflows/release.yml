@@ -54,19 +54,18 @@ jobs:
           echo "release_name=${{ github.event.inputs.release_name || 'CoreProtect 23.1 (Paper 26.1 support)' }}" >> $GITHUB_OUTPUT
 
       - name: Create Release and Upload JAR
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: ${{ steps.release_inputs.outputs.tag }}
-          name: ${{ steps.release_inputs.outputs.release_name }}
-          body: |
-            ## CoreProtect with Paper 26.1 Support
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.release_inputs.outputs.tag }}" \
+            "${{ steps.find_jar.outputs.jar_path }}" \
+            --repo "${{ github.repository }}" \
+            --title "${{ steps.release_inputs.outputs.release_name }}" \
+            --notes "## CoreProtect with Paper 26.1 Support
 
-            Merged [PlayPro/CoreProtect#879](https://github.com/PlayPro/CoreProtect/pull/879) — adds support for Paper 26.1 (new year-based versioning format).
+Merged [PlayPro/CoreProtect#879](https://github.com/PlayPro/CoreProtect/pull/879) — adds support for Paper 26.1 (new year-based versioning format).
 
-            ### Changes
-            - Added `Bukkit_v26` and `Paper_v26` adapters for the new Paper 26.x versioning
-            - Updated version detection to support both legacy `1.x` and new `26.x` format
-            - Improved `VersionCheckService` with regex-based version parsing
-          files: ${{ steps.find_jar.outputs.jar_path }}
-          draft: false
-          prerelease: false
+### Changes
+- Added \`Bukkit_v26\` and \`Paper_v26\` adapters for the new Paper 26.x versioning
+- Updated version detection to support both legacy \`1.x\` and new \`26.x\` format
+- Improved \`VersionCheckService\` with regex-based version parsing"
