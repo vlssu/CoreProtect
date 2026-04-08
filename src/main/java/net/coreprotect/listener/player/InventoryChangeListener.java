@@ -153,8 +153,7 @@ public final class InventoryChangeListener extends Queue implements Listener {
                         List<ItemStack[]> oldContainerList = ConfigHandler.oldContainer.get(loggingChestIdViewer);
                         if (oldContainerList != null) { // player has pending consumer item
                             int sizeOld = oldContainerList.size();
-                            ConfigHandler.forceContainer.computeIfAbsent(loggingChestIdViewer, k -> new ArrayList<>());
-                            List<ItemStack[]> list = ConfigHandler.forceContainer.get(loggingChestIdViewer);
+                            List<ItemStack[]> list = ConfigHandler.forceContainer.computeIfAbsent(loggingChestIdViewer, k -> new ArrayList<>());
 
                             if (list != null && list.size() < sizeOld) {
                                 ItemStack[] containerState = ItemUtils.getContainerState(inventoryData);
