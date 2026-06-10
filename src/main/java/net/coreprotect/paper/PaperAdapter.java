@@ -32,6 +32,7 @@ public class PaperAdapter implements PaperInterface {
     public static final int PAPER_V1_20 = BukkitAdapter.BUKKIT_V1_20;
     public static final int PAPER_V1_21 = BukkitAdapter.BUKKIT_V1_21;
     public static final int PAPER_V26_0 = BukkitAdapter.BUKKIT_V26_0;
+    public static final int PAPER_V26_1 = BukkitAdapter.BUKKIT_V26_1;
 
     public static void loadAdapter() {
         int paperVersion = ConfigHandler.SERVER_VERSION;
@@ -61,8 +62,9 @@ public class PaperAdapter implements PaperInterface {
                 PaperAdapter.ADAPTER = new Paper_v1_20();
                 break;
             case PAPER_V26_0:
+            case PAPER_V26_1:
             default:
-                PaperAdapter.ADAPTER = new Paper_26_0();
+                PaperAdapter.ADAPTER = new Paper_v26();
                 break;
         }
     }
