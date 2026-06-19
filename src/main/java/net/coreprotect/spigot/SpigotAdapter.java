@@ -26,6 +26,7 @@ public class SpigotAdapter implements SpigotInterface {
     public static final int SPIGOT_V1_21 = BukkitAdapter.BUKKIT_V1_21;
     public static final int SPIGOT_V26_0 = BukkitAdapter.BUKKIT_V26_0;
     public static final int SPIGOT_V26_1 = BukkitAdapter.BUKKIT_V26_1;
+    public static final int SPIGOT_V26_2 = BukkitAdapter.BUKKIT_V26_2;
 
     public static void loadAdapter() {
         int spigotVersion = ConfigHandler.SERVER_VERSION;
@@ -48,6 +49,7 @@ public class SpigotAdapter implements SpigotInterface {
             case SPIGOT_V1_21:
             case SPIGOT_V26_0:
             case SPIGOT_V26_1:
+            case SPIGOT_V26_2:
             default:
                 SpigotAdapter.ADAPTER = new SpigotHandler();
                 break;

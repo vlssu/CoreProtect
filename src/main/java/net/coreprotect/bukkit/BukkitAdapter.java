@@ -65,6 +65,7 @@ public class BukkitAdapter implements BukkitInterface {
     public static final int BUKKIT_V1_21 = 21;
     public static final int BUKKIT_V26_0 = 2600;
     public static final int BUKKIT_V26_1 = 2601;
+    public static final int BUKKIT_V26_2 = 2602;
 
     public static int getAdapterVersion(int major, int minor) {
         return major == 1 ? minor : (major * 100) + minor;
@@ -97,6 +98,7 @@ public class BukkitAdapter implements BukkitInterface {
             case BUKKIT_V1_21:
             case BUKKIT_V26_0:
             case BUKKIT_V26_1:
+            case BUKKIT_V26_2:
                 ADAPTER = new Bukkit_v26();
                 break;
             default:
